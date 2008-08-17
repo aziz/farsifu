@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>spell_farsi (FarsiFu::NumbersExtensions::InstanceMethods)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File farsi_fu.rb, line 59</span>
+                        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">spell_farsi</span>
+                                <span class="ruby-comment cmt"># Distigushing the number (float and )</span>
+                                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Float</span>
+                                        <span class="ruby-identifier">num_array</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_f</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;.&quot;</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">//</span>).<span class="ruby-identifier">reverse</span>
+                                        <span class="ruby-identifier">dec_array</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_f</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;.&quot;</span>).<span class="ruby-identifier">last</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">//</span>).<span class="ruby-identifier">slice</span>(<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">9</span>).<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">reverse</span>
+                                        <span class="ruby-identifier">dec_copy_b</span> = <span class="ruby-identifier">dec_array</span>.<span class="ruby-identifier">clone</span> ; <span class="ruby-identifier">dec_copy_a</span> = <span class="ruby-identifier">dec_array</span>.<span class="ruby-identifier">clone</span>
+                                        <span class="ruby-identifier">result</span> = <span class="ruby-identifier">spell</span>(<span class="ruby-identifier">num_array</span>)
+                                        ( <span class="ruby-identifier">result</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">PERSIAN_DIGIT_SIGN</span>[<span class="ruby-value">2</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">spell</span>(<span class="ruby-identifier">dec_array</span>) <span class="ruby-operator">+</span> <span class="ruby-constant">PERSIAN_DIGIT_SPELL</span>[<span class="ruby-value str">&quot;decimals&quot;</span>][<span class="ruby-identifier">dec_copy_a</span>.<span class="ruby-identifier">size</span>].<span class="ruby-identifier">to_s</span> )  <span class="ruby-keyword kw">unless</span> [<span class="ruby-constant">PERSIAN_DIGIT_SPELL</span>[<span class="ruby-value">0</span>][<span class="ruby-value">10</span>],<span class="ruby-value str">&quot;&quot;</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">spell</span>(<span class="ruby-identifier">dec_copy_b</span>)
+                                        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">result</span>
+                                <span class="ruby-keyword kw">else</span>
+                                        <span class="ruby-identifier">num_array</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_i</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">//</span>).<span class="ruby-identifier">reverse</span>
+                                        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">spell</span>(<span class="ruby-identifier">num_array</span>)
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
