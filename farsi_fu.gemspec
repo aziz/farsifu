@@ -14,6 +14,7 @@ spec = Gem::Specification.new do |s|
 	s.test_file = "test/test.rb"
 	s.has_rdoc = true
 	s.extra_rdoc_files = ["README","CHANGELOG","TODO","MIT-LICENSE"]
+        s.rdoc_options << "--charset" << "utf-8"
 end
 
 if $0 == __FILE__
