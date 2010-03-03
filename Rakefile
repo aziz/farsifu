@@ -9,7 +9,7 @@ begin
     gem.authors = ["Aziz A. Bargi"]
     gem.email = "allen.bargi@gmail.com"
     gem.homepage = "http://github.com/aziz/farsifu"
-    gem.summary = "a toolbox for developing ruby application in Persian (Farsi) language, see readme for features"
+    gem.summary = "a toolbox for developing ruby applications in Persian (Farsi) language, see readme for features"
     gem.platform = Gem::Platform::RUBY
     gem.has_rdoc = true
     gem.extra_rdoc_files = ["README.rdoc","LICENSE"]

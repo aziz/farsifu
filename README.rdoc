@@ -1,8 +1,11 @@
 = farsifu
+farsifu is a toolbox for developing ruby applications in Persian (Farsi) language.
 
 == Features
 * Coverting numbers to Persian numbers
 * Spelling numbers in Persian
+* List of Iran's provinces, cities, counties 
+* List of countries in Persian
 
 == Install
   gem install farsifu
@@ -13,6 +16,7 @@
 * renamed gem from FarsiFu to farsifu
 * Added a spec suite
 * Migrated the gem to rubygems.org
+* Added Iran Module 
 
 ==== 0.02 - 10.AUG.2008
 * converted into a gem
