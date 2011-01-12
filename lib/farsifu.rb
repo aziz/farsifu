@@ -1,15 +1,15 @@
-#:title: FarsiFu
+#:title: Farsifu
 module FarsiFu
-  
+
   module NumbersExtensions
     module InstanceMethods
       # :stopdoc:
-      require 'jcode' 
-      $KCODE = 'u' 
-      PERSIAN_CHARS = "۱۲۳۴۵۶۷۸۹۰،×؛"
-      ENGLISH_CHARS = "1234567890,*;" 
-      PERSIAN_DIGIT_JOINT = " و " 
-      PERSIAN_DIGIT_SIGN = ["منفی ", "مثبت ", " ممیز "] 
+      require 'jcode'
+      $KCODE = 'u'
+      PERSIAN_CHARS = "۱۲۳۴۵۶۷۸۹۰،؛"
+      ENGLISH_CHARS = "1234567890,;"
+      PERSIAN_DIGIT_JOINT = " و "
+      PERSIAN_DIGIT_SIGN = ["منفی ", "مثبت ", " ممیز "]
       PERSIAN_DIGIT_SPELL = {
         0          => [ nil ,"یک","دو","سه","چهار","پنج","شش","هفت","هشت","نه", "صفر"] ,
         1          => [ nil ,"ده","بیست","سی","چهل","پنجاه","شصت","هفتاد","هشتاد","نود"],
@@ -17,35 +17,35 @@ module FarsiFu
         "10..19"   => [ "ده" ,"یازده","دوازده","سیزده","چهارده","پانزده","شانزده","هفده","هجده","نوزده"],
         "zillion"  => [ nil ,"هزار","میلیون","میلیارد","بیلیون","تریلیون","کوادریلیون","کوینتیلیون","سیکستیلیون","سپتیلیون","اکتیلیون","نونیلیون","دسیلیون"],
         "decimals" => [ nil, "دهم", "صدم", "هزارم", "ده‌هزارم", "صدهزارم", "میلیونیم", "ده‌میلیونیم","صدمیلیونیم","میلیاردیم"]
-      }       
+      }
       # :startdoc:
-      
-      # Returns a string which is the equivalent English number of a Persian number (in String) 
+
+      # Returns a string which is the equivalent English number of a Persian number (in String)
       #
-      # Example: 
+      # Example:
       #   "۱۲۳".to_english # => "123"
       def to_english
         self.to_s.tr(PERSIAN_CHARS,ENGLISH_CHARS)
       end
-      
-      # Returns a string which is the equivalent Persian number of an English number (in String) 
-      # accepts instances of String, Integer and Numeric classes (Fixnum,Bignum and floats are accepted) 
+
+      # Returns a string which is the equivalent Persian number of an English number (in String)
+      # accepts instances of String, Integer and Numeric classes (Fixnum,Bignum and floats are accepted)
       #
       # alias: to_persian
       #
-      # Example: 
-      #   "123".to_farsi # => "۱۲۳"  
-      #   "456".to_persian # => "۴۵۶"  
-      #   789.to_farsi # => "۷۸۹" 
+      # Example:
+      #   "123".to_farsi # => "۱۲۳"
+      #   "456".to_persian # => "۴۵۶"
+      #   789.to_farsi # => "۷۸۹"
       def to_farsi
-        self.to_s.tr(ENGLISH_CHARS,PERSIAN_CHARS)  
+        self.to_s.tr(ENGLISH_CHARS,PERSIAN_CHARS)
       end
-      alias_method :to_persian, :to_farsi  
-            
-      # Spells a number in Persian 
-      # accpets english numbers (in float,fixnum or string) 
+      alias_method :to_persian, :to_farsi
+
+      # Spells a number in Persian
+      # accpets english numbers (in float,fixnum or string)
       #
-      # Example: 
+      # Example:
       #   5678.spell_farsi # => "پنج هزار و ششصد و هفتاد و هشت"
       def spell_farsi
         # Distigushing the number (float and )
@@ -62,7 +62,7 @@ module FarsiFu
         end
       end
 
-    private #---------------------------------------------------------      
+    private #---------------------------------------------------------
     def spell(num_array)
       # Dealing with signs
       sign_m = num_array.include?("-") ? PERSIAN_DIGIT_SIGN[0] : ""
@@ -70,16 +70,16 @@ module FarsiFu
       num_array.delete_at(num_array.index("-")) if sign_m.size > 0
       num_array.delete_at(num_array.index("+")) if sign_p.size > 0
       sign = sign_m + sign_p
-      
+
       zillion = 0
       farsi_number = []
 
       # Dealing with Zero
       if (num_array.length == 1 && num_array[0] == "0" )
-        farsi_number = [PERSIAN_DIGIT_SPELL[0][10]] 
+        farsi_number = [PERSIAN_DIGIT_SPELL[0][10]]
         num_array = []
       end
-      
+
       while num_array.length > 0 do
         spelling = []
         num_array[0..2].each_with_index do |digit,index|
@@ -89,14 +89,14 @@ module FarsiFu
                spelling[0] = nil
              end
         end
-        
+
         3.times { num_array.shift if num_array.length > 0 } # Eliminating the first 3 number of the array
-        dig = spelling.reverse.compact.join(PERSIAN_DIGIT_JOINT) 
+        dig = spelling.reverse.compact.join(PERSIAN_DIGIT_JOINT)
         if dig.size > 0
-          dig << (" " + PERSIAN_DIGIT_SPELL["zillion"][zillion].to_s) 
-          farsi_number.unshift(dig) 
+          dig << (" " + PERSIAN_DIGIT_SPELL["zillion"][zillion].to_s)
+          farsi_number.unshift(dig)
         end
-        
+
         zillion += 1
       end # End of While
 
@@ -104,7 +104,7 @@ module FarsiFu
     end
 
     end
-  end  
+  end
 
 end
 
@@ -123,7 +123,7 @@ end
 # [:en]   English name
 # [:fa]   Persian name
 module Iran
-  
+
   # :stopdoc:
   Provinces = [
   {:name => "آذربایجان شرقی"     , :eng_name => "Azerbaijan, East",           :capital => "تبریز",   :eng_capital => "Tabriz",      :counties => ["آذرشهر", "اسکو", "اهر", "بستان‌آباد", "بناب", "تبریز", "جلفا", "چاراویماق", "سراب", "شبستر", "عجب‌شیر", "کلیبر", "مراغه", "مرند", "ملکان", "میانه", "ورزقان", "هریس", "هشترود"]},

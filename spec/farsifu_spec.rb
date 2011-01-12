@@ -3,8 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe "Farsifu" do
   
   before(:all) do
-    PERSIAN_CHARS = "۱۲۳۴۵۶۷۸۹۰،×؛"
-    ENGLISH_CHARS = "1234567890,*;"
+    PERSIAN_CHARS = "۱۲۳۴۵۶۷۸۹۰،؛"
+    ENGLISH_CHARS = "1234567890,;"
   end
   
   it "should convert English numbers to Persian numbers" do
