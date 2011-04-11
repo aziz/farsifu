@@ -6,8 +6,10 @@ module FarsiFu
   module NumbersExtensions
     module InstanceMethods
       # :stopdoc:
-      require 'jcode'
-      $KCODE = 'u'
+      if RUBY_VERSION < '1.9'
+        require 'jcode'
+        $KCODE = 'u'
+      end
       PERSIAN_CHARS = "۱۲۳۴۵۶۷۸۹۰،؛"
       ENGLISH_CHARS = "1234567890,;"
       PERSIAN_DIGIT_JOINT = " و "
