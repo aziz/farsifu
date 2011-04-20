@@ -8,6 +8,7 @@ farsifu is a toolbox for developing ruby applications in Persian (Farsi) languag
 * List of countries in Persian
 
 ## Examples:
+``` ruby
     "1234567890,;".to_farsi   # => "۱۲۳۴۵۶۷۸۹۰،؛"
     "۱۲۳۴۵۶۷۸۹۰،؛".to_english # => "1234567890,;"
     1024.spell_farsi          # => "یک هزار و بیست و چهار"
@@ -24,6 +25,7 @@ farsifu is a toolbox for developing ruby applications in Persian (Farsi) languag
     Iran::Countries
     # => returns an array of hashes like below
     # [ { :iso2 => 'AI', :fa => 'آنگیل', :en => 'Anguilla' }, ...]
+```
 
 ## Install
     gem install farsifu
