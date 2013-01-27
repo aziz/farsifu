@@ -31,14 +31,14 @@ describe "Farsifu" do
   end
 
   it "should be able to show first type of sequentional numbers to persian" do
-    nums = {0 => "صفر",1 => "اول", 3 => "سوم", 12 => "دوازدهم", 20 => "بیستم", 121=> "صد و بیست و یکم"}
+    nums = {0 => "صفر",1 => "اول", 3 => "سوم", 12 => "دوازدهم", 33 => "سی و سوم", 121=> "صد و بیست و یکم"}
     nums.each do |k, v|
       k.spell_seq.should == v
     end
   end
 
   it "should be able to show second type of sequentional numbers to persian" do
-    nums = {0 => "صفر",1 => "اولین", 3 => "سومین", 12 => "دوازدهمین", 20 => "بیستمین", 121=> "صد و بیست و یکمین"}
+    nums = {0 => "صفر",1 => "اولین", 3 => "سومین", 12 => "دوازدهمین", 33 => "سی و سومین", 121=> "صد و بیست و یکمین"}
     nums.each do |k, v|
       k.spell_seq(true).should == v
     end

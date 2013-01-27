@@ -130,7 +130,7 @@ module FarsiFu
       if exceptions.include? self
         exceptions[self]
       else
-        spell_farsi + suffix
+        (spell_farsi + suffix).gsub(/سه(م|مین)$/) { "سو#{$1}" }
       end
     end
 
