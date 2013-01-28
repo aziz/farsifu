@@ -3,7 +3,7 @@ farsifu is a toolbox for developing ruby applications in Persian (Farsi) languag
 
 ## Features
 * Converting numbers to Persian numbers
-* Spelling numbers in Persian
+* Spelling numbers in Persian (also support ordinal spelling)
 * List of Iran's provinces, cities, counties
 * List of countries in Persian
 
@@ -15,7 +15,10 @@ farsifu is a toolbox for developing ruby applications in Persian (Farsi) languag
     -2567023.spell_farsi      # => "منفی دو میلیون و پانصد و شصت و هفت هزار و بیست و سه"
     7.53.spell_farsi          # => "هفت ممیز پنجاه و سه صدم"
     -0.999.spell_farsi        # => "منفی صفر ممیز نهصد و نود و نه هزارم"
-    
+    12.spell_ordinal_farsi    # => "دوازدهم"
+    12.spell_ordinal_farsi(true)    # => "دوازدهمین"
+
+
     Iran::Provinces
     # => returns an array of hashes like below
     # [{:name => "آذربایجان شرقی", :eng_name => "Azerbaijan, East",
@@ -31,6 +34,10 @@ farsifu is a toolbox for developing ruby applications in Persian (Farsi) languag
     gem install farsifu
 
 ## History
+### 0.3.0 - 28.JAN.2013
+* added farsi ordinal spelling, courtesy of Arash Mousavi
+
+
 ### 0.2.2 - 11.APR.2011
 * added ruby 1.9 compatibility, courtesy of Brian Kaney 
 
@@ -65,4 +72,4 @@ farsifu is a toolbox for developing ruby applications in Persian (Farsi) languag
 
 ## Copyright
 
-Copyright (c) 2010 Allen Bargi. See LICENSE for details.
+Copyright (c) 2009-2013 Allen Bargi. See LICENSE for details.

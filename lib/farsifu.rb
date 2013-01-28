@@ -69,11 +69,11 @@ module FarsiFu
       # Spells numbers in sequentional format. If pass `true`, it will use the second format
       #
       # Example:
-      #   1.spell_seq       # => "اول"
-      #   121.spell_seq     # => "صد و بیست و یکم"
-      #   2.spell_seq(true) # => "دومین"
-      #   2054.spell_seq(true) # => "دو هزار و پنجاه چهارمین"
-      def spell_seq(*args)
+      #   1.spell_ordinal_farsi       # => "اول"
+      #   121.spell_ordinal_farsi     # => "صد و بیست و یکم"
+      #   2.spell_ordinal_farsi(true) # => "دومین"
+      #   2054.spell_ordinal_farsi(true) # => "دو هزار و پنجاه چهارمین"
+      def spell_ordinal_farsi(*args)
         if args[0]
           exceptions = {0 => "صفر", 1 => "اولین", 3 => "سومین"}
           suffix = "مین"
@@ -82,7 +82,7 @@ module FarsiFu
           suffix = "م"
         end
 
-        make_sequence_spell(exceptions, suffix)
+        make_ordinal_spell(exceptions, suffix)
       end
 
     private #---------------------------------------------------------
@@ -126,7 +126,7 @@ module FarsiFu
       sign + farsi_number.compact.join(PERSIAN_DIGIT_JOINT).strip
     end
 
-    def make_sequence_spell(exceptions, suffix)
+    def make_ordinal_spell(exceptions, suffix)
       if exceptions.include? self
         exceptions[self]
       else
