@@ -66,6 +66,25 @@ module FarsiFu
         end
       end
 
+      # Spells numbers in sequentional format. If pass `true`, it will use the second format
+      #
+      # Example:
+      #   1.spell_seq       # => "اول"
+      #   121.spell_seq     # => "صد و بیست و یکم"
+      #   2.spell_seq(true) # => "دومین"
+      #   2054.spell_seq(true) # => "دو هزار و پنجاه چهارمین"
+      def spell_seq(*args)
+        if args[0]
+          exceptions = {0 => "صفر", 1 => "اولین", 3 => "سومین"}
+          suffix = "مین"
+        else
+          exceptions = {0 => "صفر", 1 => "اول", 3 => "سوم"}
+          suffix = "م"
+        end
+
+        make_sequence_spell(exceptions, suffix)
+      end
+
     private #---------------------------------------------------------
     def spell(num_array)
       # Dealing with signs
@@ -105,6 +124,14 @@ module FarsiFu
       end # End of While
 
       sign + farsi_number.compact.join(PERSIAN_DIGIT_JOINT).strip
+    end
+
+    def make_sequence_spell(exceptions, suffix)
+      if exceptions.include? self
+        exceptions[self]
+      else
+        (spell_farsi + suffix).gsub(/سه(م|مین)$/) { "سو#{$1}" }
+      end
     end
 
     end
