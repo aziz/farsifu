@@ -27,7 +27,6 @@ module FarsiFu
     def to_farsi
       self.to_s.tr(ENGLISH_CHARS,PERSIAN_CHARS)
     end
-    alias_method :to_persian, :to_farsi
 
     def to_s
       @number.to_s
