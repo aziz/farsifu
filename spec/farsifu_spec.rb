@@ -7,6 +7,7 @@ describe "Farsifu" do
   before(:all) do
     PERSIAN_CHARS = "۱۲۳۴۵۶۷۸۹۰،؛"
     ENGLISH_CHARS = "1234567890,;"
+    pending 'Waiting for duck punch'
   end
 
   it "should convert English numbers to Persian numbers" do
