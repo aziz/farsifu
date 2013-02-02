@@ -21,4 +21,5 @@ Gem::Specification.new do |s|
   s.rdoc_options              = ["--charset=UTF-8"]
   s.add_development_dependency(%q<rspec>, ["~> 2.12.0"])
   s.add_development_dependency(%q<bundler>, ["~> 1.2.0"])
+  s.add_development_dependency(%q<guard-rspec>)
 end
