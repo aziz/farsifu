@@ -19,14 +19,22 @@ module NumToWord
   end
 end
 
+module WordToNum
+  def to_number
+    FarsiFu::WordToNum.new(self).to_number
+  end
+end
+
 class String
   include Convert
+  include WordToNum
 end
 
-class Integer
+class Numeric
   include NumToWord
 end
 
-class Float
-  include NumToWord
-end
+# Seems that Numeric works for both Float and Integers
+# class Float
+#   include NumToWord
+# end
