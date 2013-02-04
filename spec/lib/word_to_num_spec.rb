@@ -29,6 +29,6 @@ describe FarsiFu::WordToNum do
   end
 
   it "works after punching into String class" do
-    "هزار و چهل و پنج".to_number == 1045
+    "هزار و چهل و پنج".farsi_to_number == 1045
   end
 end

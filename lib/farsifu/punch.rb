@@ -20,7 +20,7 @@ module NumToWord
 end
 
 module WordToNum
-  def to_number
+  def farsi_to_number
     FarsiFu::WordToNum.new(self).to_number
   end
 end

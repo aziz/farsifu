@@ -17,6 +17,7 @@ farsifu is a toolbox for developing ruby applications in Persian (Farsi) languag
     -0.999.spell_farsi        # => "منفی صفر ممیز نهصد و نود و نه هزارم"
     12.spell_ordinal_farsi    # => "دوازدهم"
     12.spell_ordinal_farsi(true)    # => "دوازدهمین"
+    "هزار و چهل و پنج".farsi_to_number  # => 1045
 
 
     Iran::Provinces
@@ -33,9 +34,14 @@ farsifu is a toolbox for developing ruby applications in Persian (Farsi) languag
 ## Install
     gem install farsifu
 
-## History
+## Changelog
+### 0.4.0 - 4.FEB.2013
+* added `farsi_to_number` to convert farsi spelling of numbers to real numbers , courtesy of [Arash Mousavi](https://github.com/arashm)
+* Major refactoring and reorganization of the code, courtesy of [Arash Mousavi](https://github.com/arashm)
+
+
 ### 0.3.0 - 28.JAN.2013
-* added farsi ordinal spelling, courtesy of Arash Mousavi
+* added farsi ordinal spelling, courtesy of [Arash Mousavi](https://github.com/arashm)
 
 
 ### 0.2.2 - 11.APR.2011
