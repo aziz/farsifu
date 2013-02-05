@@ -12,6 +12,7 @@ describe "Farsifu" do
 
   it "should convert English numbers to Persian numbers" do
     ENGLISH_CHARS.to_farsi.should == PERSIAN_CHARS
+    123.to_farsi.should == '۱۲۳'
   end
 
   it "should convert Persian numbers to Eersian numbers" do
