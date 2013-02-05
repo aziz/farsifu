@@ -31,6 +31,7 @@ class String
 end
 
 class Numeric
+  include Convert
   include NumToWord
 end
 
