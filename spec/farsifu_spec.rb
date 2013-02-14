@@ -22,6 +22,7 @@ describe "Farsifu" do
   it "should be able to spell positive and negetive integers in Persian" do
     1024.spell_farsi.should == "یک هزار و بیست و چهار"
     -2567023.spell_farsi.should == "منفی دو میلیون و پانصد و شصت و هفت هزار و بیست و سه"
+    '+2567023'.spell_farsi.should == "مثبت دو میلیون و پانصد و شصت و هفت هزار و بیست و سه"
   end
 
   it "should be able to spell positive and negetive floats in Persian" do
@@ -30,6 +31,13 @@ describe "Farsifu" do
     0.163.spell_farsi.should == "صفر ممیز صد و شصت و سه هزارم"
     -124.1.spell_farsi.should == "منفی صد و بیست و چهار ممیز یک دهم"
     -0.999.spell_farsi.should == "منفی صفر ممیز نهصد و نود و نه هزارم"
+  end
+
+  it "should spell in non-verbose mode" do
+    1204.spell_farsi(false).should eq('هزار و دویست و چهار')
+    -0.2.spell_farsi(false).should eq('منفی دو دهم')
+    # shouldn't affect floats without zero at the beginning
+    1.2.spell_farsi(false).should eq('یک ممیز دو دهم')
   end
 
   it "should be able to show first type of sequentional numbers to persian" do

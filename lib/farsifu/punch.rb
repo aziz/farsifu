@@ -10,12 +10,12 @@ module Convert
 end
 
 module NumToWord
-  def spell_farsi
-    FarsiFu::NumToWord.new(self).spell_farsi
+  def spell_farsi(verbose = true)
+    FarsiFu::NumToWord.new(self, verbose).spell_farsi
   end
 
-  def spell_ordinal_farsi(*args)
-    FarsiFu::NumToWord.new(self).spell_ordinal_farsi(args[0])
+  def spell_ordinal_farsi(second_type = false, verbose = true)
+    FarsiFu::NumToWord.new(self, verbose).spell_ordinal_farsi(second_type)
   end
 end
 
@@ -27,6 +27,7 @@ end
 
 class String
   include Convert
+  include NumToWord
   include WordToNum
 end
 
@@ -34,8 +35,3 @@ class Numeric
   include Convert
   include NumToWord
 end
-
-# Seems that Numeric works for both Float and Integers
-# class Float
-#   include NumToWord
-# end

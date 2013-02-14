@@ -3,8 +3,11 @@
 module FarsiFu
   class NumToWord
 
-    def initialize(number)
-      @number = number
+    def initialize(number, verbose = true)
+      @number  = number.to_s
+      @sign    = check_for_sign
+      @float   = true if number.is_a? Float
+      @verbose = verbose
     end
 
     # Spells a number in Persian
@@ -12,18 +15,12 @@ module FarsiFu
     #
     # Example:
     #   5678.spell_farsi # => "پنج هزار و ششصد و هفتاد و هشت"
+    #   3.22.spell_farsi # => "سه ممیز بیست و دو صدم"
     def spell_farsi
-      # Distigushing the number (float and )
-      if @number.class == Float
-        num_array = @number.to_f.to_s.split(".").first.split(//).reverse
-        dec_array = @number.to_f.to_s.split(".").last.split(//).slice(0..9).compact.reverse
-        dec_copy_b = dec_array.clone ; dec_copy_a = dec_array.clone
-        result = spell(num_array)
-        ( result += PERSIAN_DIGIT_SIGN[2] + spell(dec_array) + " " + PERSIAN_DIGIT_SPELL["decimals"][dec_copy_a.size].to_s )  unless [PERSIAN_DIGIT_SPELL[0][10],""].include? spell(dec_copy_b)
-        return result
+      if @float
+        parse_and_spell_float
       else
-        num_array = @number.to_i.to_s.split(//).reverse
-        return spell(num_array)
+        parse_and_spell_real_number
       end
     end
 
@@ -34,57 +31,96 @@ module FarsiFu
     #   121.spell_ordinal_farsi     # => "صد و بیست و یکم"
     #   2.spell_ordinal_farsi(true) # => "دومین"
     #   2054.spell_ordinal_farsi(true) # => "دو هزار و پنجاه چهارمین"
-    def spell_ordinal_farsi(*args)
-      if args[0]
-        exceptions = {0 => "صفر", 1 => "اولین", 3 => "سومین"}
-        suffix = "مین"
+    def spell_ordinal_farsi(second_type = false)
+      if second_type
+        exceptions = {'0' => "صفر", '1' => "اولین", '3' => "سومین"}
+        suffix     = "مین"
       else
-        exceptions = {0 => "صفر", 1 => "اول", 3 => "سوم"}
-        suffix = "م"
+        exceptions = {'0' => "صفر", '1' => "اول", '3' => "سوم"}
+        suffix     = "م"
       end
 
       make_ordinal_spell(exceptions, suffix)
     end
 
-  private #---------------------------------------------------------
-    def spell(num_array)
-      # Dealing with signs
-      sign_m = num_array.include?("-") ? PERSIAN_DIGIT_SIGN[0] : ""
-      sign_p = num_array.include?("+") ? PERSIAN_DIGIT_SIGN[1] : ""
-      num_array.delete_at(num_array.index("-")) if sign_m.size > 0
-      num_array.delete_at(num_array.index("+")) if sign_p.size > 0
-      sign = sign_m + sign_p
-
-      zillion = 0
-      farsi_number = []
-
-      # Dealing with Zero
-      if (num_array.length == 1 && num_array[0] == "0" )
-        farsi_number = [PERSIAN_DIGIT_SPELL[0][10]]
-        num_array = []
+  private
+    def parse_and_spell_real_number
+      answer = []
+      group_by_power do |power, num|
+        three_digit_spell = spell_three_digits(num, power)
+        answer.concat three_digit_spell
       end
+      spell = answer.compact.reverse.join(' و ').prepend("#{SIGNS[@sign]}")
+      # verbose false?
+      spell.gsub!(/^(منفی\s|مثبت\s)*یک\sهزار/) {"#{$1}هزار"} unless @verbose
+      spell
+    end
 
-      while num_array.length > 0 do
-        spelling = []
-        num_array[0..2].each_with_index do |digit,index|
-            spelling[index] = PERSIAN_DIGIT_SPELL[index][digit.to_i]
-            if index == 1 && digit == "1"   # Dealing with 10..19
-               spelling[1] = PERSIAN_DIGIT_SPELL["10..19"][num_array[0].to_i]
-               spelling[0] = nil
-             end
+    def parse_and_spell_float
+      # Seperate floating point
+      float_num         = @number.match(/\./)
+      pre_num, post_num = float_num.pre_match.prepend("#{@sign}"), float_num.post_match
+      # To convert it to دهم, صدم...
+      floating_point_power       = 10 ** post_num.size
+
+      pre_num_spell              = NumToWord.new(pre_num).spell_farsi
+      pre_num_spell << 'صفر' if pre_num == '0' and @verbose
+      post_num_spell             = NumToWord.new(post_num).spell_farsi
+      floating_point_power_spell = NumToWord.new(floating_point_power, false).spell_ordinal_farsi.gsub(/یک\s*/, '')
+
+      if pre_num != '0' or @verbose
+        "#{pre_num_spell} ممیز #{post_num_spell} #{floating_point_power_spell}"
+      else
+        "#{pre_num_spell if pre_num_spell.size > 0}#{post_num_spell} #{floating_point_power_spell}"
+      end
+    end
+
+    # checks if the first char is `+` or `-` and returns the sign
+    def check_for_sign
+      sign = @number.slice(0).match(/(-|\+)/)
+      if sign
+        # remove the sign from number
+        @number.slice!(0)
+        sign[1]
+      end
+    end
+
+    # '1234567' #=> {0=>["7", "6", "5"], 3=>["4", "3", "2"], 6=>["1"]}
+    def group_by_power &block
+      power = 0
+      @number.split('').reverse.each_slice(3) do |digit|
+        yield power, digit
+        power += 3
+      end
+    end
+
+    # ["7", "6", "5"], 3 #=> ['هفت هزار', 'شصت', 'پانصد']
+    def spell_three_digits(num, power)
+      answer = []
+      yekan = nil
+      num.each_with_index do |n, i|
+        # The 'n' is zero? no need to evaluate
+        next if n == '0'
+        exception_index = n.to_i * (10 ** i)
+
+        case i
+        when 0
+          # save Yekan to use for 10..19 exceptions
+          yekan = n
+        when 1
+          # If we're in Sadgan and the digit is 1 so it's a number
+          # between 10..19 and it's an exception
+          if n == '1'
+            exception_index = 10 + yekan.to_i
+            answer.clear
+          end
         end
-
-        3.times { num_array.shift if num_array.length > 0 } # Eliminating the first 3 number of the array
-        dig = spelling.reverse.compact.join(PERSIAN_DIGIT_JOINT)
-        if dig.size > 0
-          dig << (" " + PERSIAN_DIGIT_SPELL["zillion"][zillion].to_s)
-          farsi_number.unshift(dig)
-        end
-
-        zillion += 1
-      end # End of While
-
-      sign + farsi_number.compact.join(PERSIAN_DIGIT_JOINT).strip
+        answer << EXCEPTIONS_INVERT[exception_index]
+      end
+      # append power of ten to first number based on `power` passed to function
+      # ["7", "6", "5"], 3 #=> ['هفت هزار', 'شصت', 'پانصد']
+      answer[0] = "#{answer[0]} #{(POWER_OF_TEN_INVERT[power])}".strip if answer.size > 0
+      answer
     end
 
     def make_ordinal_spell(exceptions, suffix)
