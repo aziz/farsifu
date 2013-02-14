@@ -6,8 +6,8 @@ Gem::Specification.new do |s|
   s.name                      = "farsifu"
   s.version                   = FarsiFu::VERSION
   s.platform                  = Gem::Platform::RUBY
-  s.authors                   = ["Allen A. Bargi"]
-  s.email                     = %q{allen.bargi@gmail.com}
+  s.authors                   = ["Allen A. Bargi", "Arash Mousavi"]
+  s.email                     = %q{allen.bargi@gmail.com mousavi.arash@gmail.com}
   s.homepage                  = %q{http://github.com/aziz/farsifu}
   s.summary                   = %q{a toolbox for developing ruby applications in Persian (Farsi) language, see readme file for features}
   s.description               = %q{a toolbox for developing ruby applications in Persian (Farsi) language, see readme file for features}
