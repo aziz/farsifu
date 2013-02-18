@@ -5,7 +5,7 @@ farsifu is a toolbox for developing ruby applications in Persian (Farsi) languag
 * Converting numbers to and from Persian numbers
 * Spelling numbers in Persian (supports ordinal spelling of numbers in Persian)
 * Converting Persian spelling of numbers back to normal numbers (see examples below)
-* List of Iran's provinces, cities, countries
+* List of Iran's provinces, cities and counties
 * List of countries in Persian
 
 ## Examples:
