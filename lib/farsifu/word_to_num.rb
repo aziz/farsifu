@@ -11,7 +11,7 @@ module FarsiFu
     # Example:
     #   "صد و بیست و یک".to_number #=> 121
     def to_number
-      return @number_in_words if !(@number_in_words.is_a? String)
+      return @number_in_words unless @number_in_words.is_a?(String)
 
       numbers_array = make_integer_array(@number_in_words)
 
@@ -32,7 +32,8 @@ module FarsiFu
       answer += memory
     end
 
-  private
+    private
+
     # returns an array of corresponding numbers from string
     # [1, 1000000, 200, 30, 5, 1000, 400, 30, 3]
     def make_integer_array(number_in_words)
@@ -40,7 +41,7 @@ module FarsiFu
       numbers_array = []
       number_in_words.each do |number|
         if power_of_ten? number
-          numbers_array << 10 ** POWER_OF_TEN[number]
+          numbers_array << 10**POWER_OF_TEN[number]
         else
           numbers_array << EXCEPTIONS[number]
         end
@@ -57,9 +58,9 @@ module FarsiFu
     def divisible_by_thousand?(number)
       number % 1000 == 0
     end
-    
+
     # Checks if the number is power of ten
-    def power_of_ten? number
+    def power_of_ten?(number)
       POWER_OF_TEN.keys.include? number
     end
   end

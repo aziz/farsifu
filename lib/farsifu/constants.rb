@@ -4,7 +4,7 @@ module FarsiFu
   PERSIAN_CHARS = "۱۲۳۴۵۶۷۸۹۰،؛"
   ENGLISH_CHARS = "1234567890,;"
 
-  SIGNS ={
+  SIGNS = {
     "-" => "منفی ",
     "+" => "مثبت "
   }
@@ -54,7 +54,7 @@ module FarsiFu
   EXCEPTIONS_INVERT = EXCEPTIONS.invert
 
   POWER_OF_TEN = {
-    # based on: 
+    # based on:
     # https://fa.wikipedia.org/wiki/%D9%86%D8%A7%D9%85_%D8%A7%D8%B9%D8%AF%D8%A7%D8%AF_%D8%A8%D8%B2%D8%B1%DA%AF
     "ده"            => 1,
     "هزار"          => 3,
@@ -70,7 +70,7 @@ module FarsiFu
     "کوانتینیارد"   => 33,
     "سکستیلیون"     => 36,
     "سکستیلیارد"    => 39,
-    "سپتیلیون"       => 42,
+    "سپتیلیون"      => 42,
     "سپتیلیارد"     => 45,
     "اکتیلیون"      => 48,
     "اکتیلیارد"     => 51,

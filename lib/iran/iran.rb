@@ -308,7 +308,6 @@ module Iran
       { :iso2 => 'ZM', :fa => 'زامبیا', :en => 'Zambia' },
       { :iso2 => 'ZW', :fa => 'زیمبابوه', :en => 'Zimbabwe' },
       { :iso2 => 'ZZ', :fa => 'ناحیهٔ نامشخص یا نامعتبر', :en => 'Unknown or Invalid Region' }
-
   ]
   # :startdoc:
 end
