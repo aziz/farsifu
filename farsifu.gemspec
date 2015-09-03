@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths             = ["lib"]
   s.extra_rdoc_files          = [ "LICENSE", "README.md"]
   s.rdoc_options              = ["--charset=UTF-8"]
-  s.add_development_dependency(%q<rspec>, ["~> 2.12.0"])
-  s.add_development_dependency(%q<bundler>, ["~> 1.2.0"])
-  s.add_development_dependency(%q<guard-rspec>)
+  s.add_development_dependency 'rspec', '~> 2.12.0'
+  s.add_development_dependency 'bundler', '~> 1.10.0'
+  s.add_development_dependency 'guard-rspec'
 end
