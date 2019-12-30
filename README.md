@@ -39,8 +39,16 @@ farsifu is a toolbox for developing ruby applications in Persian (Farsi) languag
     gem install farsifu
 
 ## Changelog
+### 0.6.0 - 01.JAN.2020
+* No public API changes
+* Enable frozen string literal to speed up Ruby
+* Update rspec and refactor tests to version 3.9
+* Drop official support for Ruby < 2.4.0 (the Gem might work on older versions, but it's not tested)
+* Enable travis-ci to run tests on supported ruby versions
+* Enable and configure rubocop
+
 ### 0.5.0 - 15.FEB.2013
-* [Arash Mousavi](https://github.com/arashm) is now a collaborator. 
+* [Arash Mousavi](https://github.com/arashm) is now a collaborator.
 * Passing false to spell_farsi method will turn off the verbose mode.
 * Major internal refactoring. Should not change the external API.
 
