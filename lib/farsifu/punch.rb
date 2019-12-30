@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Convert
   def to_farsi
     FarsiFu::Convert.new(self).to_farsi
   end
-  alias_method :to_persian, :to_farsi
+  alias to_persian to_farsi
 
   def to_english
     FarsiFu::Convert.new(self).to_english

@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module FarsiFu
   class Convert
-
     def initialize(number)
       @number = number
     end
@@ -15,8 +16,10 @@ module FarsiFu
       to_s.tr(PERSIAN_CHARS, ENGLISH_CHARS)
     end
 
-    # Returns a string which is the equivalent Persian number of an English number (in String)
-    # accepts instances of String, Integer and Numeric classes (Fixnum,Bignum and floats are accepted)
+    # Returns a string which is the equivalent Persian number of an English
+    # number (in String)
+    # accepts instances of String, Integer and Numeric classes
+    # (Fixnum, Bignum and floats are accepted)
     #
     # alias: to_persian
     #

@@ -1,8 +1,8 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module FarsiFu
+  # Converting numbers to words
   class NumToWord
-
     def initialize(number, verbose = true)
       @number  = number.to_s
       @sign    = check_for_sign
@@ -11,7 +11,7 @@ module FarsiFu
     end
 
     # Spells a number in Persian
-    # accpets english numbers (in float,fixnum or string)
+    # Accepts English numbers (in float, fixnum or string)
     #
     # Example:
     #   5678.spell_farsi  # => "پنج هزار و ششصد و هفتاد و هشت"
@@ -43,7 +43,7 @@ module FarsiFu
       make_ordinal_spell(exceptions, suffix)
     end
 
-    private
+  private
 
     def parse_and_spell_real_number
       answer = []
@@ -51,28 +51,29 @@ module FarsiFu
         three_digit_spell = spell_three_digits(num, power)
         answer.concat three_digit_spell
       end
-      spell = answer.compact.reverse.join(' و ').prepend("#{SIGNS[@sign]}")
+      spell = answer.compact.reverse.join(' و ').prepend((SIGNS[@sign]).to_s)
       # verbose false?
-      spell.gsub!(/^(منفی\s|مثبت\s)*یک\sهزار/) { "#{$1}هزار" } unless @verbose
+      spell.gsub!(/^(منفی\s|مثبت\s)*یک\sهزار/) { "#{Regexp.last_match(1)}هزار" } unless @verbose
       spell
     end
 
-    def parse_and_spell_float
+    def parse_and_spell_float # rubocop:disable Metrics/AbcSize
       # Seperate floating point
       float_num = @number.match(/\./)
-      pre_num   = float_num.pre_match.prepend("#{@sign}")
+      pre_num   = float_num.pre_match.prepend(@sign.to_s)
       post_num  = float_num.post_match
       # To convert it to دهم, صدم...
-      floating_point_power       = 10**post_num.size
-      pre_num_spell              = NumToWord.new(pre_num).spell_farsi
+      floating_point_power = 10**post_num.size
+      pre_num_spell = NumToWord.new(pre_num).spell_farsi
       pre_num_spell << 'صفر' if pre_num == '0' && @verbose
-      post_num_spell             = NumToWord.new(post_num).spell_farsi
-      floating_point_power_spell = NumToWord.new(floating_point_power, false).spell_ordinal_farsi.gsub(/یک\s*/, '')
+      post_num_spell = NumToWord.new(post_num).spell_farsi
+      floating_point_power_spell = NumToWord.new(floating_point_power, false)
+        .spell_ordinal_farsi.gsub(/یک\s*/, '')
 
       if pre_num != '0' || @verbose
         "#{pre_num_spell} ممیز #{post_num_spell} #{floating_point_power_spell}"
       else
-        "#{pre_num_spell if pre_num_spell.size > 0}#{post_num_spell} #{floating_point_power_spell}"
+        "#{pre_num_spell}#{post_num_spell} #{floating_point_power_spell}".strip
       end
     end
 
@@ -80,13 +81,14 @@ module FarsiFu
     def check_for_sign
       sign = @number.slice(0).match(/(-|\+)/)
       return unless sign
+
       # remove the sign from number
       @number.slice!(0)
       sign[1]
     end
 
     # '1234567' #=> {0=>["7", "6", "5"], 3=>["4", "3", "2"], 6=>["1"]}
-    def group_by_power(&block)
+    def group_by_power
       power = 0
       @number.split('').reverse.each_slice(3) do |digit|
         yield power, digit
@@ -95,12 +97,13 @@ module FarsiFu
     end
 
     # ["7", "6", "5"], 3 #=> ['هفت هزار', 'شصت', 'پانصد']
-    def spell_three_digits(num, power)
+    def spell_three_digits(num, power) # rubocop:disable Metrics/AbcSize
       answer = []
       yekan = nil
       num.each_with_index do |n, i|
-        # The 'n' is zero? no need to evaluate
+        # If 'n' is zero? no need to evaluate
         next if n == '0'
+
         exception_index = n.to_i * (10**i)
 
         case i
@@ -119,7 +122,7 @@ module FarsiFu
       end
       # append power of ten to first number based on `power` passed to function
       # ["7", "6", "5"], 3 #=> ['هفت هزار', 'شصت', 'پانصد']
-      answer[0] = "#{answer[0]} #{(POWER_OF_TEN_INVERT[power])}".strip if answer.size > 0
+      answer[0] = "#{answer[0]} #{(POWER_OF_TEN_INVERT[power])}".strip unless answer.empty?
       answer
     end
 
@@ -127,7 +130,7 @@ module FarsiFu
       if exceptions.include? @number
         exceptions[@number]
       else
-        (spell_farsi + suffix).gsub(/سه(م|مین)$/) { "سو#{$1}" }
+        (spell_farsi + suffix).gsub(/سه(م|مین)$/) { "سو#{Regexp.last_match(1)}" }
       end
     end
   end

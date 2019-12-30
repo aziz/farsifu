@@ -1,8 +1,8 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module FarsiFu
+  # Converting words to numbers
   class WordToNum
-
     def initialize(number_in_words)
       @number_in_words = number_in_words
     end
@@ -10,7 +10,7 @@ module FarsiFu
     # It converts number represented in words to numeral.
     # Example:
     #   "صد و بیست و یک".to_number #=> 121
-    def to_number
+    def to_number # rubocop:disable Metrics/AbcSize
       return @number_in_words unless @number_in_words.is_a?(String)
 
       numbers_array = make_integer_array(@number_in_words)
@@ -32,31 +32,31 @@ module FarsiFu
       answer += memory
     end
 
-    private
+  private
 
     # returns an array of corresponding numbers from string
     # [1, 1000000, 200, 30, 5, 1000, 400, 30, 3]
     def make_integer_array(number_in_words)
-      number_in_words = eliminate_and(number_in_words.strip.squeeze(" ")).split(" ")
+      number_in_words = eliminate_and(number_in_words.strip.squeeze(' ')).split(' ')
       numbers_array = []
       number_in_words.each do |number|
-        if power_of_ten? number
-          numbers_array << 10**POWER_OF_TEN[number]
-        else
-          numbers_array << EXCEPTIONS[number]
-        end
+        numbers_array << if power_of_ten? number
+                           10**POWER_OF_TEN[number]
+                         else
+                           EXCEPTIONS[number]
+                         end
       end
       numbers_array
     end
 
     # Removes "و" from the string
     def eliminate_and(number_in_words)
-      number_in_words.gsub(/ و /, " ")
+      number_in_words.gsub(/ و /, ' ')
     end
 
     # Checkes if the number is power of divisible by thousand(bigger than 1000)
     def divisible_by_thousand?(number)
-      number % 1000 == 0
+      (number % 1000).zero?
     end
 
     # Checks if the number is power of ten

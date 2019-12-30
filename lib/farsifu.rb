@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# frozen_string_literal: true
 
 require 'farsifu/constants'
 require 'farsifu/convert'
@@ -8,10 +8,4 @@ require 'farsifu/punch'
 require 'iran/iran'
 
 #:title: Farsifu
-module FarsiFu
-  # :stopdoc:
-  if RUBY_VERSION < '1.9'
-    require 'jcode'
-    $KCODE = 'u'
-  end
-end
+module FarsiFu; end

@@ -1,0 +1,58 @@
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+  - 'spec/**/*'
+  - 'bin/*'
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'lib/tasks/**/*'
+
+Metrics/MethodLength:
+  Max: 20
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: true
+  EnforcedStyle: indented
+
+Layout/AccessModifierIndentation:
+  EnforcedStyle: outdent
+
+Layout/ParameterAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%i': '()'
+    '%w': '()'
+
+Style/TrailingCommaInArrayLiteral:
+  Enabled: true
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: true
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArguments:
+  Enabled: true
+  EnforcedStyleForMultiline: comma
+
+Style/Documentation:
+  Enabled: false
+
+Layout/EmptyLines:
+  Enabled: true
+
+Layout/LineLength:
+  Max: 100
+  IgnoreCopDirectives: True
