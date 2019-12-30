@@ -1,4 +1,10 @@
-source "http://rubygems.org"
+# frozen_string_literal: true
 
-# Specify your gem's dependencies in jalalidate.gemspec
+source 'http://rubygems.org'
+
+group :test, :development do
+  gem 'pry-byebug', platforms: :mri
+end
+
+# Specify your gem's dependencies in farsifu.gemspec
 gemspec

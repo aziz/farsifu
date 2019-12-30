@@ -6,7 +6,7 @@ module FarsiFu
     def initialize(number, verbose = true)
       @number  = number.to_s
       @sign    = check_for_sign
-      @float   = true if number.is_a? Float
+      @float   = true if number.is_a?(Float)
       @verbose = verbose
     end
 
@@ -24,7 +24,8 @@ module FarsiFu
       end
     end
 
-    # Spells numbers in sequentional format. If pass `true`, it will use the second format
+    # Spells numbers in sequential format. If pass `true`, it will use the
+    # second format
     #
     # Example:
     #   1.spell_ordinal_farsi           # => "اول"
@@ -58,19 +59,19 @@ module FarsiFu
     end
 
     def parse_and_spell_float # rubocop:disable Metrics/AbcSize
-      # Seperate floating point
+      # Separate floating point
       float_num = @number.match(/\./)
       pre_num   = float_num.pre_match.prepend(@sign.to_s)
       post_num  = float_num.post_match
       # To convert it to دهم, صدم...
       floating_point_power = 10**post_num.size
       pre_num_spell = NumToWord.new(pre_num).spell_farsi
-      pre_num_spell << 'صفر' if pre_num == '0' && @verbose
+      pre_num_spell << 'صفر' if pre_num.to_i.zero? && @verbose
       post_num_spell = NumToWord.new(post_num).spell_farsi
       floating_point_power_spell = NumToWord.new(floating_point_power, false)
         .spell_ordinal_farsi.gsub(/یک\s*/, '')
 
-      if pre_num != '0' || @verbose
+      if !pre_num.to_i.zero? || @verbose
         "#{pre_num_spell} ممیز #{post_num_spell} #{floating_point_power_spell}"
       else
         "#{pre_num_spell}#{post_num_spell} #{floating_point_power_spell}".strip
@@ -79,11 +80,11 @@ module FarsiFu
 
     # checks if the first char is `+` or `-` and returns the sign
     def check_for_sign
-      sign = @number.slice(0).match(/(-|\+)/)
+      sign = @number.match(/^(-|\+)/)
       return unless sign
 
       # remove the sign from number
-      @number.slice!(0)
+      @number = @number[1..-1]
       sign[1]
     end
 

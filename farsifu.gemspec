@@ -20,5 +20,5 @@ Gem::Specification.new do |s|
   s.require_paths             = ['lib']
   s.extra_rdoc_files          = ['LICENSE', 'README.md']
   s.rdoc_options              = ['--charset=UTF-8']
-  s.add_development_dependency 'rspec', '~> 2.12.0'
+  s.add_development_dependency 'rspec', '~> 3.9'
 end

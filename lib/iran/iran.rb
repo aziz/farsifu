@@ -49,7 +49,6 @@ module Iran
     { name: 'همدان', eng_name: 'Hamadan', capital: 'همدان', eng_capital: 'Hamadan', counties: %w(اسدآباد بهار تویسرکان رزن فامنین کبودرآهنگ ملایر نهاوند همدان) },
     { name: 'یزد', eng_name: 'Yazd', capital: 'یزد', eng_capital: 'Yazd', counties: %w(ابرکوه اردکان بافق بهاباد تفت خاتم صدوق طبس مهریز میبد یزد) },
   ].freeze
-  alias Provinces PROVINCES
 
   Countries = [
     { iso2: 'AC', fa: 'جزایر آسنسیون', en: 'Ascension Island' },
@@ -310,7 +309,6 @@ module Iran
     { iso2: 'ZW', fa: 'زیمبابوه', en: 'Zimbabwe' },
     { iso2: 'ZZ', fa: 'ناحیهٔ نامشخص یا نامعتبر', en: 'Unknown or Invalid Region' },
   ].freeze
-  alias Countries COUNTRIES
   # :startdoc:
 end
 # rubocop:enable Layout/LineLength, Naming/ConstantName, Metrics/ModuleLength
